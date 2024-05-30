@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Details</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .pokemon-details-card {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .pokemon-image {
+            width: 100%;
+            height: auto;
+        }
+        
+        .pokemon-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="pokemon-details-card card">
+            <img src="" class="card-img-top pokemon-image" id="pokemon-image" alt="Pokémon Image">
+            <div class="card-body">
+                <h5 class="card-title" id="pokemon-name"></h5>
+                <p class="card-text">ID: <span id="pokemon-id"></span></p>
+                <div class="pokemon-details">
+                    <div>
+                        <h6>Types</h6>
+                        <ul class="list-group list-group-flush" id="pokemon-types"></ul>
+                    </div>
+                    <div>
+                        <h6>Moves</h6>
+                        <ul class="list-group list-group-flush" id="pokemon-moves"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pokemonImage = document.getElementById('pokemon-image');
+            const pokemonName = document.getElementById('pokemon-name');
+            const pokemonId = document.getElementById('pokemon-id');
+            const pokemonTypes = document.getElementById('pokemon-types');
+            const pokemonMoves = document.getElementById('pokemon-moves');
+            const urlParams = new URLSearchParams(window.location.search);
+            const pokemonIdParam = urlParams.get('id');
+
+            fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonIdParam}`)
+                .then(response => response.json())
+                .then(pokemon => {
+                    pokemonImage.src = pokemon.sprites.front_default;
+                    pokemonName.textContent = pokemon.name;
+                    pokemonId.textContent = pokemon.id;
+
+                    pokemon.types.forEach(typeInfo => {
+                        const typeItem = document.createElement('li');
+                        typeItem.className = 'list-group-item';
+                        typeItem.textContent = typeInfo.type.name;
+                        pokemonTypes.appendChild(typeItem);
+                    });
+
+                    pokemon.moves.slice(0, 5).forEach(moveInfo => {
+                        const moveItem = document.createElement('li');
+                        moveItem.className = 'list-group-item';
+                        moveItem.textContent = moveInfo.move.name;
+                        pokemonMoves.appendChild(moveItem);
+                    });
+                });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de Pokémon</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .pokemon-card {
+            margin-bottom: 20px;
+        }
+        
+        .pokemon-image {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-3">
+                <h3>Buscar y Filtrar</h3>
+                <input type="text" id="search" class="form-control mb-2" placeholder="Buscar Pokémon">
+                <input type="text" id="filter-move" class="form-control mb-2" placeholder="Filtrar por Movimiento">
+                <input type="text" id="filter-type" class="form-control mb-2" placeholder="Filtrar por Tipo">
+                <button class="btn btn-primary btn-block" onclick="sortAZ()">Ordenar A-Z</button>
+                <button class="btn btn-primary btn-block" onclick="sortZA()">Ordenar Z-A</button>
+                <button class="btn btn-primary btn-block" onclick="sortById()">Ordenar por ID (Asc)</button>
+                <button class="btn btn-primary btn-block" onclick="sortByIdDesc()">Ordenar por ID (Desc)</button>
+                <button class="btn btn-primary btn-block" onclick="openAddPokemonForm()">Agregar Pokémon</button>
+            </div>
+            <div class="col-md-9">
+                <div class="row" id="pokemon-gallery"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="pokemonFormModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pokemonFormTitle">Agregar/Editar Pokémon</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="pokemonForm">
+                        <div class="form-group">
+                            <label for="pokemon-name">Nombre</label>
+                            <input type="text" class="form-control" id="pokemon-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pokemon-id">ID</label>
+                            <input type="number" class="form-control" id="pokemon-id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pokemon-image">URL de la Imagen</label>
+                            <input type="url" class="form-control" id="pokemon-image" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pokemon-types">Tipos</label>
+                            <select multiple class="form-control" id="pokemon-types"></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pokemon-moves">Movimientos</label>
+                            <select multiple class="form-control" id="pokemon-moves"></select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="recursos/js/funcionalidad.js"></script>
+</body>
+
+</html>
